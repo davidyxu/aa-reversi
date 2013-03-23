@@ -23,6 +23,14 @@ class ReversiInterface
 		end
 	end
 
+	def prompt_winner(winner)
+		case winner
+		when :draw then puts "Draw!"
+		else
+			puts "#{winner.capitalize} player is the winner."
+		end
+	end
+
 	def print_border_letters
 		print " "
 		('a'..'h').each { |letter| print " #{letter} " }
