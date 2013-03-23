@@ -15,15 +15,19 @@ class Board
 	end
 
 	def flip(new_piece, flanking_piece, vector, color)
-
+		position = new_piece.dup
+		until position == flanking_piece
+			position[0] += vector[0]
+			position[1] += vector[1]
+			@board[position[0]][position[1]] = color
+		end
 	end
 
 	def search_in_one_direction(new_piece, vector, color = :empty)
-		position = new_piece
+		position = new_piece.dup
 		position[0] += vector[0]
 		position[1] += vector[1]
 		until out_of_bounds?(position)
-			#p self[position]
 			return position if color == :empty && self[position].nil?
 			return position if self[position] == color
 			position[0] += vector[0]
@@ -45,17 +49,13 @@ class Board
 		if valid_moves.empty?
 			pieces_of(color).each do |piece|
 				vectors_of_interest = search_adjacent_of(piece, opposite_color(color))
-				#p piece
 				vectors_of_interest.each do |vector|
-					p "vector: #{vector}, piece: #{piece}"
 					possible_flank = search_in_one_direction(piece, vector)
 					valid_moves << possible_flank if possible_flank
 				end
 			end
 		end
-		#p valid_moves.uniq
 		valid_moves.uniq
-		#return array of valid positions
 	end
 
 	def opposite_color(color)
@@ -82,10 +82,10 @@ class Board
 	end
 
 	def make_move(position, color)
-		self[position] = color
+		@board[position[0]][position[1]] = color
 		@vectors.each do |vector|
-			#flank = search_in_one_direction(position, vector, color)
-			#flip(position, flank, vector) if flank
+			flank = search_in_one_direction(position, vector, color)
+			flip(position, flank, vector, color) if flank
 		end
 	end
 end

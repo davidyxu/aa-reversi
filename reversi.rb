@@ -22,7 +22,6 @@ class Reversi
 			end
 			turn = switch(turn)
 		end
-		#play loop
 	end
 	def win?
 		false
