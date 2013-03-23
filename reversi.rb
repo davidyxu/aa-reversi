@@ -13,13 +13,13 @@ class Reversi
 		turn = :white
 		until win?
 			@interface.print_board(board)
-			valid_moves = @board.valid_moves
+			valid_moves = @board.valid_moves(turn)
 			if valid_moves.empty?
 				@interface.pass_turn(turn) 
 			else
 				move = @interface.get_move(turn, valid_moves)
+				@board.make_move(move, turn)
 			end
-			@board.make_move(move, turn)
 			turn = switch(turn)
 		end
 		#play loop

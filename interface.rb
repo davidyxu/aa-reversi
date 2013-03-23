@@ -12,6 +12,7 @@ class ReversiInterface
 		when :black then @black.get_move(valid_moves)
 		end
 	end
+
 	def pass_turn(turn)
 		print "#{turn.capitalize} player has no valid moves."
 	end
@@ -31,7 +32,7 @@ class ReversiInterface
 	def print_board(board)
 		print_border_letters
 		board.each_with_index do |row, index|
-			print "#{index}"
+			print "#{index+1}"
 			row.each do |square|
 				case square
 				when nil then print "   "

@@ -30,6 +30,7 @@ class HumanPlayer < Player
 		end
 		puts "Valid positions to place are: #{move_coordinates}"
 	end
+
 	def get_move(valid_moves)
 		puts "#{@color.capitalize} player's turn:"
 		prompt_valid_moves(valid_moves)
